@@ -8,9 +8,10 @@
     "adminUsername": {
       "value": "adminuser"
     },
-    "adminPassword": {
+    "sshKeyData": {
       "value": "GEN-PASSWORD"
     },
+    
     "domainName": {
       "value": "GEN-UNIQUE-8"
     },
