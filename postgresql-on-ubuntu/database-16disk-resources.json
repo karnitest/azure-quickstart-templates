@@ -5,13 +5,22 @@
     "commonSettings": {
       "type": "object"
     },
+    
+    "adminUserName": {
+      "type": "string",
+      "defaultValue": "azureuser",
+      "metadata": {
+        "description": "User name for the Virtual Machine."
+      }
+      },
+    
     "osSettings": {
       "type": "object"
     },
     "storageSettings": {
       "type": "object"
     },
-    "adminPassword": {
+    "sshKeyData": {
       "type": "securestring"
     },
     "machineSettings": {
@@ -32,6 +41,7 @@
   },
   "variables": {
     "namespace": "[parameters('commonSettings').namespace]",
+    "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
     "subnetRef": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
     "storageAccountName": "[concat(parameters('storageSettings').name, variables('namespace'))]",
     "vmName": "[concat(variables('namespace'), 'vm')]",
@@ -82,11 +92,23 @@
         "hardwareProfile": {
           "vmSize": "[parameters('machineSettings').vmSize]"
         },
-        "osProfile": {
+        
+         "osProfile": {
           "computerName": "[concat(variables('vmName'), copyindex())]",
           "adminUsername": "[variables('adminUsername')]",
-          "adminPassword": "[parameters('adminPassword')]"
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": true,
+            "ssh": {
+              "publicKeys": [
+                {
+                  "path": "[variables('sshKeyPath')]",
+                  "keyData": "[parameters('sshKeyData')]"
+                }
+              ]
+            }
+          }
         },
+        
         "storageProfile": {
           "imageReference": "[parameters('osSettings').imageReference]",
           "osDisk": {
