@@ -334,9 +334,7 @@
               "namespace": "jumpbox"
             }
           },
-          "adminPassword": {
-            "value": "[parameters('adminPassword')]"
-          },
+          
           "subnet": {
             "value": "[variables('networkSettings').subnets.dmz]"
           },
