@@ -158,16 +158,16 @@
     },
     "networkSettings": {
       "vnetName": "[parameters('virtualNetworkName')]",
-      "addressPrefix": "10.0.0.0/16",
+      "addressPrefix": "10.12.0.0/16",
       "subnets": {
         "dmz": {
           "name": "dmz",
-          "prefix": "10.0.0.0/24",
+          "prefix": "10.12.4.0/24",
           "vnet": "[parameters('virtualNetworkName')]"
         },
         "data": {
           "name": "data",
-          "prefix": "10.0.1.0/24",
+          "prefix": "10.12.5.0/24",
           "vnet": "[parameters('virtualNetworkName')]"
         }
       }
